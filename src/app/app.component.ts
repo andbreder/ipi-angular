@@ -1,4 +1,4 @@
-import { Component, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, Inject, Input, PLATFORM_ID } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { MemberService } from './services/member.service';
 import { Member } from './models/api-member.model';
@@ -6,6 +6,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatRippleModule } from '@angular/material/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem, CdkDrag, CdkDropList } from '@angular/cdk/drag-drop';
 import { Answer } from './models/api-awnser.model';
+import { FormsModule } from '@angular/forms';
 
 class AnalysysAsset {
   filename: string;
@@ -93,6 +94,7 @@ class AnalysysAsset {
     CommonModule,
     CdkDrag,
     CdkDropList,
+    FormsModule,
     MatRippleModule,
     MatSliderModule
   ],
@@ -110,6 +112,9 @@ export class AppComponent {
   sampleListEvens: string[] = [];
 
   submited = false;
+
+  authenticated: boolean = false;
+  rootPassword: string = '';
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
@@ -183,11 +188,33 @@ export class AppComponent {
       }
     });
   }
+
+  authenticate() {
+    this.memberService.postAuth(this.rootPassword).subscribe({
+      next: () => {
+        this.authenticated = true;
+      },
+      error: (error) => console.error('Erro de autenticação', error)
+    });
+  }
+
   resetForm() {
     this.submited = false;
     this.currentMember = new Member('');
     this.sampleList = ['1995', '22', '2', '15'];
     this.sampleListOdds = [];
     this.sampleListEvens = [];
+  }
+  resetAwnser(name: string) {
+    this.memberService.putAwnsers(this.currentMember).subscribe({
+      next: (data) => {
+        this.members = data;
+        this.submited = true;
+      },
+      error: (error) => console.error('Erro enviar respostas:', error),
+      complete: () => {
+        this.currentMember = new Member('');
+      }
+    });
   }
 }

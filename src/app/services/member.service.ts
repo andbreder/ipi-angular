@@ -9,11 +9,15 @@ export class MemberService {
 
   constructor(private http: HttpClient) { }
 
+  postAuth(password: string): Observable<any> {
+    return this.http.post<Member[]>(`${this.apiUrl}/auth`, { "password": password });
+  }
+
   getMembers(): Observable<Member[]> {
     return this.http.get<Member[]>(`${this.apiUrl}/members`);
   }
 
-  putAwnsers(member:Member): Observable<Member[]> {
+  putAwnsers(member: Member): Observable<Member[]> {
     return this.http.put<Member[]>(`${this.apiUrl}/awnser`, member);
   }
 }
