@@ -1,0 +1,351 @@
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenuLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasMenuLabel">Offcanvas</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <div>
+      Some text as placeholder. In real life you can have the elements you have chosen. Like, text, images, lists, etc.
+    </div>
+    <div class="dropdown mt-3">
+      <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+        Dropdown button
+      </button>
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="#">Action</a></li>
+        <li><a class="dropdown-item" href="#">Another action</a></li>
+        <li><a class="dropdown-item" href="#">Something else here</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<nav class="navbar bg-body-tertiary">
+  <div class="container">
+    <a class="navbar-brand" href="#">
+      <img src="../assets/images/8725899_ear_icon.svg" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+      Audible Sensitivity Test
+    </a>
+    <button matRipple type="button" class="btn btn-outline-primary border-0" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu" aria-controls="offcanvasMenu">
+      <span class="material-icons-round">
+        menu
+      </span>
+    </button>
+  </div>
+</nav>
+
+<div id="container-carousel" class="container">
+  <div id="carouselMusics" class="carousel slide" data-bs-touch="false">
+    <div class="carousel-inner">
+
+
+
+      <!-- Encerrar -->
+      <div class="carousel-item active">
+        <h1>Enviar dados</h1>
+        <hr />
+        <div class="row mb-3">
+          <div class="col-2 border-end border-1 d-flex align-items-center justify-content-center text-primary">
+            <span class="material-icons-round" style="font-size: 2rem !important;">thumb_up</span>
+          </div>
+          <div class="col">
+            <p style="text-align: justify">
+              <b class="text-primary">{{currentMember.name}}</b>, obrigado por participar!
+            </p>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-2 border-end border-1 d-flex align-items-center justify-content-center text-primary">
+            <span class="material-icons-round" style="font-size: 2rem !important;">save</span>
+          </div>
+          <div class="col">
+            <p style="text-align: justify">
+              Envie suas respostas
+            </p>
+          </div>
+        </div>
+        <div class="d-flex w-100 justify-content-center align-items-end" style="flex: 1">
+          <div class="row mb-3">
+            <div class="col">
+              <button matRipple type="button" class="btn btn-primary btn-lg px-4" (click)="submit()">
+                <span class="material-icons-round">
+                  save
+                </span>
+              </button>
+            </div>
+            <div class="col">
+              <button matRipple type="button" class="btn btn-primary btn-lg px-4" data-bs-target="#carouselMusics" data-bs-slide-to="0" [disabled]="!submited" (click)="resetForm()">
+                <b>Voltar ao início</b>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Orientações-->
+      <div class="carousel-item ">
+        <div class="sticky-top">
+          <h1>Orientações</h1>
+          <hr />
+          <div class="row mb-3">
+            <div class="col-2 border-end border-1 d-flex align-items-center justify-content-center text-primary">
+              <span class="material-icons-round" style="font-size: 2rem !important;">volunteer_activism</span>
+            </div>
+            <div class="col">
+              <p style="text-align: justify">
+                <b class="text-primary">1.</b> Antes de tudo, gostaria de deixar um agradecimento a você que se dispõe, em compromisso e responsabilidade, <b>a louvar a Deus com o seu melhor!</b>
+              </p>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-2 border-end border-1 d-flex align-items-center justify-content-center text-primary">
+              <span class="material-icons-round" style="font-size: 2rem !important;">spatial_tracking</span>
+            </div>
+            <div class="col">
+              <p style="text-align: justify">
+                <b class="text-primary">2.</b> Você precisa se concentrar, é muito importante que você esteja num ambiente sem distrações e barulho.
+              </p>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-2 border-end border-1 d-flex align-items-center justify-content-center text-primary">
+              <span class="material-icons-round" style="font-size: 2rem !important;">hearing</span>
+            </div>
+            <div class="col">
+              <p style="text-align: justify">
+                <b class="text-primary">3.</b> Este é um teste de audição, limpe os ouvidos! As suas respostas dependem totalmente deles.
+              </p>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-2 border-end border-1 d-flex align-items-center justify-content-center text-primary">
+              <span class="material-icons-round" style="font-size: 2rem !important;">headphones</span>
+            </div>
+            <div class="col">
+              <p style="text-align: justify">
+                <b class="text-primary">4.</b> Por fim, é indicado que você utilize um fone de ouvido para garantir o isolamento do som que você está julgando.
+              </p>
+            </div>
+          </div>
+          <div class="d-flex justify-content-center align-items-end" style="margin-top: 6rem; flex: 1">
+            <button matRipple type="button" class="btn btn-primary btn-lg px-4" data-bs-target="#carouselMusics" data-bs-slide="next">
+              <b>Começar o teste!</b>
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Identifique-se-->
+      <div class="carousel-item">
+        <div class="sticky-top">
+          <h1>Identifique-se</h1>
+          <hr />
+          <p style="text-align: justify">
+            Procure por você na lista e pressione na sua foto!
+          </p>
+          <br />
+        </div>
+        <div class="member-select">
+          @for (member of members; track member) {
+          <div class="member border border-1 row g-0">
+            <div class="col-5">
+              <img src="../assets/images/members/{{ member.name.toLowerCase() }}.jpg" alt="{{ member.name }}" [ngClass]="{'off': member.awnsers.length !== 0}" />
+            </div>
+            <div class="col-7">
+              <button matRipple class="btn btn-lg border-0 h-100 w-100" [ngClass]="member.awnsers.length === 0 ? 'btn-outline-primary' : 'disabled'" [disabled]="member.awnsers.length !== 0" [attr.data-bs-target]="member.awnsers.length === 0 ? '#carouselMusics' : ''" [attr.data-bs-slide]="member.awnsers.length === 0 ? 'next' : ''" (click)="setCurrentMember(member);">
+                <h1 class="m-0">{{ member.name }}</h1>
+              </button>
+            </div>
+          </div>
+          }
+        </div>
+      </div>
+      <!-- Instruções-->
+      <div class="carousel-item">
+        <div class="sticky-top">
+          <h1>Olá <b class="text-primary">{{currentMember.name}}</b></h1>
+          <hr />
+          <div class="row mb-3">
+            <div class="col-2 border-end border-1 d-flex align-items-center justify-content-center text-primary">
+              <span class="material-icons-round" style="font-size: 2rem !important;">touch_app</span>
+            </div>
+            <div class="col">
+              <p style="text-align: justify">
+                <b>Pressione</b> o item para o selecionar
+              </p>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-2 border-end border-1 d-flex align-items-center justify-content-center text-primary">
+              <span class="material-icons-round" style="font-size: 2rem !important;">swipe</span>
+            </div>
+            <div class="col">
+              <p style="text-align: justify">
+                <b>Arraste</b> o item pressionado para move-lo
+              </p>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-2 border-end border-1 d-flex align-items-center justify-content-center text-primary">
+              <span class="material-icons-round" style="font-size: 2rem !important;">error_outline</span>
+            </div>
+            <div class="col">
+              <p style="text-align: justify">
+                <b>Agrupe</b> os itens na coluna correta
+              </p>
+            </div>
+          </div>
+        </div>
+        <hr />
+        <div class="row g-0">
+          <div class="col d-flex border-end border-1">
+            <div class="dragndrop-container">
+              <b class="d-block w-100 text-center text-success">Números pares</b>
+              <small class="d-block w-100 text-center">0, 2, 4, 6 ...</small>
+              <div cdkDropList id="dnd-evens" #listEvens="cdkDropList" [cdkDropListData]="sampleListEvens" [cdkDropListConnectedTo]="[listSample, listOdds]" class="dragndrop-list list-good" (cdkDropListDropped)="drop($event)">
+                @for (item of sampleListEvens; track item) {
+                <div class="dragndrop-box" cdkDrag [cdkDragData]="item">
+                  <div class="custom-placeholder"></div>
+                  <h3 class="m-0">{{item}}</h3>
+                </div>
+                }
+              </div>
+            </div>
+          </div>
+          <div class="col d-flex">
+            <div class="dragndrop-container">
+              <b class="d-block w-100 text-center text-danger">Números ímpares</b>
+              <small class="d-block w-100 text-center">1, 3, 5, 7 ...</small>
+              <div cdkDropList id="dnd-odds" #listOdds="cdkDropList" [cdkDropListData]="sampleListOdds" [cdkDropListConnectedTo]="[listSample, listEvens]" class="dragndrop-list list-bad" (cdkDropListDropped)="drop($event)">
+                @for (item of sampleListOdds; track item) {
+                <div class="dragndrop-box" cdkDrag [cdkDragData]="item">
+                  <div class="custom-placeholder"></div>
+                  <h3 class="m-0">{{item}}</h3>
+                </div>
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr *ngIf="sampleList.length !== 0" />
+        <div class="dragndrop-container" [ngClass]="{'d-none': sampleList.length === 0}">
+          <div cdkDropList id="dnd-numbers" cdkDropListOrientation="mixed" #listSample="cdkDropList" [cdkDropListData]="sampleList" class="dragndrop-list mixed" [cdkDropListConnectedTo]="[listEvens, listOdds]" (cdkDropListDropped)="drop($event)">
+            @for (item of sampleList; track item) {
+            <div matRipple class="dragndrop-box" cdkDrag [cdkDragData]="item">
+              <div class="custom-placeholder"></div>
+              <h3 class="m-0">{{item}}</h3>
+            </div>
+            }
+          </div>
+        </div>
+        <div class="d-flex" style="flex: 1">
+          <button *ngIf="sampleList.length === 0" matRipple type="button" class="btn btn-primary btn-lg align-self-end w-100" data-bs-target="#carouselMusics" data-bs-slide="next">
+            <h1 class="m-0 material-icons-round" style="font-size: 4rem;">
+              redo
+            </h1>
+          </button>
+        </div>
+      </div>
+      @for (awnser of currentMember.awnsers; track awnser; let i = $index) {
+      <!-- {{index}}. Música -->
+      <div *ngIf="currentMember && currentMember.name != ''" class="carousel-item">
+        <div class="container" style="flex: 1;">
+          <h1>{{i+1}}. {{getMusicName(awnser.filename)}}</h1>
+          <hr />
+          <div class="row g-0">
+            <div class="col d-flex border-end border-1">
+              <div class="dragndrop-container">
+                <b class="d-block w-100 text-center text-success">Bom</b>
+                <small class="d-block w-100 text-center">Tá Certo!</small>
+                <div cdkDropList #awnsersGood="cdkDropList" [cdkDropListData]="awnser.good" [cdkDropListConnectedTo]="[awnsersList, awnsersNeutral, awnsersBad]" class="dragndrop-list list-good" (cdkDropListDropped)="drop($event)">
+                  @for (item of awnser.good; track item) {
+                  <div class="dragndrop-box" cdkDrag>
+                    <div class="custom-placeholder"></div>
+                    <span>{{item}}</span>
+                  </div>
+                  }
+                </div>
+              </div>
+            </div>
+            <div class="col d-flex">
+              <div class="dragndrop-container">
+                <b class="d-block w-100 text-center">Neutro</b>
+                <small class="d-block w-100 text-center">Não sei!</small>
+                <div cdkDropList #awnsersNeutral="cdkDropList" [cdkDropListData]="awnser.neutral" [cdkDropListConnectedTo]="[awnsersList, awnsersGood, awnsersBad]" class="dragndrop-list list-neutral" (cdkDropListDropped)="drop($event)">
+                  @for (item of awnser.neutral; track item) {
+                  <div class="dragndrop-box" cdkDrag>
+                    <div class="custom-placeholder"></div>
+                    <span>{{item}}</span>
+                  </div>
+                  }
+                </div>
+              </div>
+            </div>
+            <div class="col d-flex border-start border-1">
+              <div class="dragndrop-container">
+                <b class="d-block w-100 text-center text-danger">Ruim</b>
+                <small class="d-block w-100 text-center">Tá Errado!</small>
+                <div cdkDropList #awnsersBad="cdkDropList" [cdkDropListData]="awnser.bad" [cdkDropListConnectedTo]="[awnsersList, awnsersGood, awnsersNeutral]" class="dragndrop-list list-bad" (cdkDropListDropped)="drop($event)">
+                  @for (item of awnser.bad; track item) {
+                  <div class="dragndrop-box" cdkDrag>
+                    <div class="custom-placeholder"></div>
+                    <span>{{item}}</span>
+                  </div>
+                  }
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr />
+          <div class="dragndrop-container" [ngClass]="{'d-none': awnser.available.length === 0}">
+            <div cdkDropList cdkDropListOrientation="mixed" #awnsersList="cdkDropList" [cdkDropListData]="awnser.available" [cdkDropListConnectedTo]="[ awnsersGood, awnsersNeutral, awnsersBad]" class="dragndrop-list mixed" (cdkDropListDropped)="drop($event)">
+              @for (item of awnser.available; track item) {
+              <div matRipple class="dragndrop-box" cdkDrag>
+                <div class="custom-placeholder"></div>
+                <span>{{item}}</span>
+              </div>
+              }
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col d-flex">
+            <mat-slider min="0" [max]="assets[i].audio?.duration" (input)="assets[i].changeTime($event)" class="w-100 align-self-center">
+              <input matSliderThumb [value]="assets[i].currentTime" #slider>
+            </mat-slider>
+          </div>
+          <div class="col-4 d-flex align-items-center justify-content-center">
+            <b class=" ">{{(assets[i].audio?.currentTime ?? 0) * 1000 | date:'mm:ss'}}/{{(assets[i].audio?.duration ?? 0) * 1000 | date:'mm:ss'}}</b>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-4">
+            <button matRipple type="button" class="btn btn-primary btn-lg w-100" [disabled]="i === 0 || assets[i].isPlaying" [attr.data-bs-target]="!assets[i].isPlaying ? '#carouselMusics' : ''" [attr.data-bs-slide]="!assets[i].isPlaying ? 'prev' : ''">
+              <span class="m-0 material-icons-round" style="font-size: 4rem;">
+                undo
+              </span>
+            </button>
+          </div>
+          <div class="col-4">
+            <button matRipple type="button" class="btn btn-primary btn-lg w-100" (click)="assets[i].playAudio()">
+              <span *ngIf="!assets[i].isPlaying" class="m-0 material-icons-round" style="font-size: 4rem;">
+                play_arrow
+              </span>
+              <span *ngIf="assets[i].isPlaying" class="m-0 material-icons-round" style="font-size: 4rem;">
+                stop
+              </span>
+            </button>
+          </div>
+          <div class="col-4">
+            <button matRipple type="button" class="btn btn-primary btn-lg w-100" [disabled]="assets[i].isPlaying || awnser.available.length > 0" [attr.data-bs-target]="!assets[i].isPlaying || awnser.available.length === 0 ? '#carouselMusics' : ''" [attr.data-bs-slide]="!assets[i].isPlaying || awnser.available.length === 0 ? 'next' : ''">
+              <span class="m-0 material-icons-round" style="font-size: 4rem;">
+                redo
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+      }
+    </div>
+  </div>
+</div>
