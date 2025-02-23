@@ -66,15 +66,15 @@
         </div>
         <div class="d-flex w-100 justify-content-center align-items-end" style="flex: 1">
           <div class="row mb-3">
-            <div class="col">
-              <button matRipple type="button" class="btn btn-primary btn-lg px-4" (click)="submit()">
+            <div class="col d-flex">
+              <button matRipple type="button" class="btn btn-primary btn-lg px-4" (click)="submit()" style="flex: 1">
                 <span class="material-icons-round">
                   save
                 </span>
               </button>
             </div>
-            <div class="col">
-              <button matRipple type="button" class="btn btn-primary btn-lg px-4" data-bs-target="#carouselMusics" data-bs-slide-to="0" [disabled]="!submited" (click)="resetForm()">
+            <div class="col d-flex">
+              <button matRipple type="button" class="btn btn-primary btn-lg px-4" data-bs-target="#carouselMusics" data-bs-slide-to="0" [disabled]="!submited" (click)="resetForm()" style="flex: 1">
                 <b>Voltar ao início</b>
               </button>
             </div>
