@@ -5,7 +5,7 @@ import { Member } from '../models/api-member.model';
 
 @Injectable({ providedIn: 'root' })
 export class MemberService {
-  private apiUrl = 'http://localhost:4222';
+  private apiUrl = 'http://192.168.18.9:4222';
 
   constructor(private http: HttpClient) { }
 
@@ -19,5 +19,9 @@ export class MemberService {
 
   putAwnsers(member: Member): Observable<Member[]> {
     return this.http.put<Member[]>(`${this.apiUrl}/awnser`, member);
+  }
+
+  delAwnsers(name: string): Observable<Member[]> {
+    return this.http.delete<Member[]>(`${this.apiUrl}/undo/${name}`);
   }
 }

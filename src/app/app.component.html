@@ -1,25 +1,36 @@
 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenuLabel">
   <div class="offcanvas-header border-bottom-1 border">
-    <h5 class="offcanvas-title" id="offcanvasMenuLabel">Administração</h5>
+    <div class="offcanvas-title d-flex g-3" id="offcanvasMenuLabel">
+      <h5 *ngIf="authenticated" class="material-icons-round pe-2" style="font-size: 21px;">lock_open</h5>
+      <h5 *ngIf="!authenticated" class="material-icons-round pe-2" style="font-size: 21px;">lock_outline</h5>
+      <h5>Administração</h5>
+    </div>
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
   <div class="offcanvas-body">
     <div *ngIf="!authenticated">
+      <b>Não tem nada pra você aqui.. sério </b>
+      <hr/>
       <label for="inputPass" class="form-label">Root Password</label>
       <input id="inputPass" class="form-control form-control-lg" type="text" placeholder="DeusTaVendo" aria-label=".form-control-lg example" [(ngModel)]="rootPassword">
-      <button matRipple class="btn btn-lg btn-primary h-100 w-100 mt-3" (click)="authenticate();">
+      <button matRipple class="btn btn-lg btn-primary h-100 w-100 mt-3" (click)="apiAuthenticate();">
         <h1 class="m-0">Autenticar</h1>
       </button>
     </div>
     <div *ngIf="authenticated">
-      As opções abaixo são de uso controlado, digite a senha para utilizar!
+      <b class="text-danger">CUIDADO!</b> Nem quem fez testou direito isso aqui
+      <hr/>
       <div class="dropdown mt-3">
         <button class="btn btn-lg btn-secondary dropdown-toggle w-100" type="button" data-bs-toggle="dropdown">
           Resetar respostas de ...
         </button>
-        <ul class="dropdown-menu">
+        <ul class="dropdown-menu w-100 rounded-0">
           @for (member of members; track member) {
-          <li *ngIf="member.awnsers.length > 0"><a class="dropdown-item" href="#" (click)="resetAwnser(member.name)">{{member.name}}</a></li>
+          <li *ngIf="member.awnsers.length > 0">
+            <a class="dropdown-item" href="#" (click)="apiDeleteAwnsersFrom(member.name)">
+              <h3 class="p-3">{{member.name}}</h3>
+            </a>
+          </li>
           }
         </ul>
       </div>
@@ -90,7 +101,7 @@
             </div>
           </div>
           <div class="d-flex justify-content-center align-items-end" style="margin-top: 6rem; flex: 1">
-            <button matRipple type="button" class="btn btn-primary btn-lg px-4" data-bs-target="#carouselMusics" data-bs-slide="next">
+            <button matRipple type="button" class="btn btn-primary btn-lg px-4" data-bs-target="#carouselMusics" data-bs-slide="next" (click)="apiGetMembers()">
               <b>Começar o teste!</b>
             </button>
           </div>
@@ -102,7 +113,7 @@
           <h1>Identifique-se</h1>
           <hr />
           <p style="text-align: justify">
-            Procure por você na lista e pressione na sua foto!
+            Procure por você na lista e toque no seu nome!
           </p>
           <br />
         </div>
@@ -119,12 +130,51 @@
             </div>
           </div>
           }
+          <div style="margin-top: 100vh;">
+            <h1>
+              😝 a lista dos participantes está mais pra cima...
+            </h1>
+          </div>
+          <div style="margin-top: 100vh;">
+            <h1>
+              😒 é só subir, o que você quer achar aqui em baixo?
+            </h1>
+          </div>
+          <div style="margin-top: 100vh;">
+            <h1>
+              😖 volta lá cara! pra quê isso!?
+            </h1>
+          </div>
+          <div style="margin-top: 100vh;">
+            <h1>
+              😱 tu não achou teu nome!?
+            </h1>
+          </div>
+          <div style="margin-top: 100vh;">
+            <h1>
+              😵‍💫 olha a lista uma ultima vez, por favor!
+            </h1>
+          </div>
+          <div class="member row g-0" style="margin-top: 100vh;">
+            <div class="col-5">
+              <img src="../assets/images/sad_baby.gif" alt="Sab Boy" />
+            </div>
+            <div class="col-7">
+              <h3 class="w-100 text-center">
+                <strong>PERDOE O LÍDER</strong>, ELE SENTE MUITO
+              </h3>
+            </div>
+          </div>
+          <hr/>
+          <h3 class="text-center text-primary">
+            CHAMA O LÍDER AÍ PRA VER O QUE ELE CONSEGUE FAZER
+          </h3>
         </div>
       </div>
       <!-- Instruções-->
       <div class="carousel-item">
         <div class="sticky-top">
-          <h1>Olá <b class="text-primary">{{currentMember.name}}</b></h1>
+          <h1>Olá <b class="text-primary">{{currentMember && currentMember.name != '' ? currentMember.name : "TESTE"}}</b></h1>
           <hr />
           <div class="row mb-3">
             <div class="col-2 border-end border-1 d-flex align-items-center justify-content-center text-primary">
@@ -207,7 +257,7 @@
           </button>
         </div>
       </div>
-      @for (awnser of currentMember.awnsers; track awnser; let i = $index) {
+      @for (awnser of currentMember?.awnsers; track awnser; let i = $index) {
       <!-- {{index}}. Música -->
       <div *ngIf="currentMember && currentMember.name != ''" class="carousel-item">
         <div class="container" style="flex: 1;">
@@ -350,7 +400,7 @@
         <div class="d-flex w-100 justify-content-center align-items-end" style="flex: 1">
           <div class="row mb-3 w-100">
             <div class="col d-flex">
-              <button matRipple type="button" class="btn btn-primary btn-lg px-4" [disabled]="submited" (click)="submit()" style="flex: 1">
+              <button matRipple type="button" class="btn btn-primary btn-lg px-4" [disabled]="submited" (click)="apiSendAwnsers()" style="flex: 1">
                 <span class="material-icons-round" style="font-size: 4rem;">
                   save
                 </span>

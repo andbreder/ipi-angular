@@ -103,7 +103,7 @@ class AnalysysAsset {
 })
 export class AppComponent {
 
-  currentMember: Member;
+  currentMember: Member | null = null;
   members: Member[] = [];
   assets: AnalysysAsset[] = [];
 
@@ -111,16 +111,22 @@ export class AppComponent {
   sampleListOdds: string[] = [];
   sampleListEvens: string[] = [];
 
-  submited = false;
+  submited: boolean | null = null;
 
-  authenticated: boolean = false;
-  rootPassword: string = '';
+  authenticated: boolean | null = null;
+  rootPassword: string | null = null;
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     private memberService: MemberService,
   ) {
     this.currentMember = new Member('');
+    this.sampleList = ['1995', '22', '2', '15'];
+    this.sampleListOdds = [];
+    this.sampleListEvens = [];
+    this.submited = false;
+    this.authenticated = false;
+    this.rootPassword = '';
     //
     // loading music data
     //
@@ -135,25 +141,17 @@ export class AppComponent {
       new AnalysysAsset(this.platformId, 'quebrantado',           /**/ "Quebrantado"),
       new AnalysysAsset(this.platformId, 'toda-sorte-de-bencaos', /**/ "Toda Sorte de Bençãos")
     ];
-    //
-    // requesting members data
-    //
-    this.memberService.getMembers().subscribe({
-      next: (data) => {
-        this.members = data;
-      },
-      error: (error) => console.error('Erro ao buscar membros:', error),
-    });
   }
 
   setCurrentMember(selected: Member) {
     this.currentMember = selected;
     this.assets.forEach(asset => {
-      if (!this.currentMember.awnsers.find(awnser => awnser.filename === asset.filename)) {
-        this.currentMember.awnsers.push(new Answer(asset.filename));
+      if (!this.currentMember?.awnsers.find(awnser => awnser.filename === asset.filename)) {
+        this.currentMember?.awnsers.push(new Answer(asset.filename));
       }
     });
   }
+
   getMusicName(filename: string) {
     return this.assets.find(a => a.filename === filename)?.musicname;
   }
@@ -161,7 +159,7 @@ export class AppComponent {
   drop(event: CdkDragDrop<string[]>) {
     const item = Number(event.item.data);
     if ((event.container.id === 'dnd-evens' && item % 2 !== 0) ||
-        (event.container.id === 'dnd-odds' && item % 2 === 0)) {
+      (event.container.id === 'dnd-odds' && item % 2 === 0)) {
       return;
     }
     if (event.previousContainer === event.container) {
@@ -176,44 +174,60 @@ export class AppComponent {
     }
   }
 
-  submit() {
-    this.memberService.putAwnsers(this.currentMember).subscribe({
-      next: (data) => {
-        this.members = data;
-        this.submited = true;
-      },
-      error: (error) => console.error('Erro enviar respostas:', error),
-      complete: () => {
-        this.currentMember = new Member('');
-      }
-    });
+  resetForm() {
+    this.currentMember = new Member('');
+    this.sampleList = ['1995', '22', '2', '15'];
+    this.sampleListOdds = [];
+    this.sampleListEvens = [];
+    this.submited = false;
+    this.authenticated = false;
+    this.rootPassword = '';
   }
 
-  authenticate() {
+  apiAuthenticate() {
+    if (!this.rootPassword)
+      return;
+    this.rootPassword = this.rootPassword.trim();
     this.memberService.postAuth(this.rootPassword).subscribe({
       next: () => {
         this.authenticated = true;
+        this.rootPassword = null;
       },
       error: (error) => console.error('Erro de autenticação', error)
     });
   }
 
-  resetForm() {
-    this.submited = false;
-    this.currentMember = new Member('');
-    this.sampleList = ['1995', '22', '2', '15'];
-    this.sampleListOdds = [];
-    this.sampleListEvens = [];
-  }
-  resetAwnser(name: string) {
-    this.memberService.putAwnsers(this.currentMember).subscribe({
+  apiGetMembers() {
+    this.memberService.getMembers().subscribe({
       next: (data) => {
         this.members = data;
+      }
+    });
+  }
+
+  apiDeleteAwnsersFrom(name: string) {
+    this.memberService.delAwnsers(name).subscribe({
+      next: (data) => {
+        this.members = data;
+      },
+      error: (error) => console.error('Erro apagar resposta:', error),
+      complete: () => {
+        this.resetForm();
+      }
+    });
+  }
+
+  apiSendAwnsers() {
+    if (!this.currentMember)
+      return;
+    this.memberService.putAwnsers(this.currentMember).subscribe({
+      next: () => {
+        this.resetForm();
         this.submited = true;
       },
-      error: (error) => console.error('Erro enviar respostas:', error),
-      complete: () => {
-        this.currentMember = new Member('');
+      error: (error) => {
+        alert(JSON.stringify(error))
+        console.error('Erro enviar respostas:', error)
       }
     });
   }
