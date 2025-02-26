@@ -1,0 +1,22 @@
+<div class="container py-4">
+  @for (result of results; track result; let i = $index) {
+  <h1>
+    {{i + 1}}. {{getMusicName(result.filename)}}
+  </h1>
+  <hr />
+  @for (classification of result.classifications; track classification) {
+  <h3 class="my-3">
+    {{classification.className}}
+  </h3>
+
+  <div class="progress" style="height: 4rem; font-size: 1em;">
+    <div class="progress-bar bg-success" role="progressbar" [style.width]="(classification.good * 100 / members.length ) + '%'" [attr.aria-valuenow]="classification.good * 100 / members.length" aria-valuemin="0" [attr.aria-valuemax]="members.length">Bom<br><b>[ {{classification.good}} / {{members.length}} ]</b></div>
+
+    <div class="progress-bar bg-secondary" role="progressbar" [style.width]="(classification.neutral * 100 / members.length ) + '%'" [attr.aria-valuenow]="classification.neutral * 100 / members.length" aria-valuemin="0" [attr.aria-valuemax]="members.length">Neutro<br><b>[ {{classification.neutral}} / {{members.length}} ]</b></div>
+
+    <div class="progress-bar bg-danger" role="progressbar" [style.width]="(classification.bad * 100 / members.length ) + '%'" [attr.aria-valuenow]="classification.bad * 100 / members.length" aria-valuemin="0" [attr.aria-valuemax]="members.length">Ruim<br><b>[ {{classification.bad}} / {{members.length}} ]</b></div>
+  </div>
+  }
+  <div class="p-4"></div>
+  }
+</div>
